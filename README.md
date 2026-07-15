@@ -79,53 +79,54 @@ This project provides an automated solution that:
 ## Block Diagram
 ## Block Diagram
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│          SMART PARKING SLOT MONITORING AND VEHICLE DETECTION                 │
-│                      USING CAN PROTOCOL (LPC2129)                            │
-└──────────────────────────────────────────────────────────────────────────────┘
-
+┌─────────────────────────────────────────────────────────────────────┐
+│   SMART PARKING SLOT MONITORING AND VEHICLE DETECTION               │
+│             USING CAN PROTOCOL (LPC2129)                            │
+└─────────────────────────────────────────────────────────────────────┘
+                                   |
+                                   V
                              Vehicle Arrives
-                                    │
-                                    ▼
+                                   │
+                                   ▼
                          ┌────────────────────┐
                          │  Entry IR Sensor   │
                          └─────────┬──────────┘
                                    │
                                    ▼
-                 ┌─────────────────────────────────┐
-                 │            NODE 2               │
-                 │         LPC2129 ARM7            │
-                 │                                 │
-                 │ • Vehicle Detection             │
-                 │ • Entry/Exit Monitoring         │
-                 │ • Slot Count Management         │
-                 │ • DS1307 RTC Interface          │
-                 └──────────────┬──────────────────┘
+                 ┌──────────────────────────┐
+                 │            NODE 2        │
+                 │         LPC2129 ARM7     │
+                 │                          │
+                 │ • Vehicle Detection      │
+                 │ • Entry/Exit Monitoring  │
+                 │ • Slot Count Management  │
+                 │ • DS1307 RTC Interface   │
+                 └──────────────┬───────────┘
                                 │
                     CAN BUS Communication
           ┌─────────────────────┴─────────────────────┐
           │                                           │
           ▼                                           ▼
-┌───────────────────────────┐              ┌─────────────────────────┐
-│          NODE 1           │              │         NODE 3          │
-│       LPC2129 ARM7        │              │      LPC2129 ARM7       │
-│                           │              │                         │
-│ • Receives CAN Messages   │              │ • Receives CAN Data     │
-│ • Displays Slot Status    │              │ • Controls SG90 Servo   │
-│ • Shows Entry/Exit Time   │              │ • Opens/Closes Gate     │
-│ • Parking Full Alert      │              │                         │
-└──────────────┬────────────┘              └──────────┬──────────────┘
-               │                                      │
-               ▼                                      ▼
-      ┌─────────────────┐                    ┌─────────────────┐
-      │   20×4 LCD      │                    │  SG90 Servo     │
-      │ Parking Status  │                    │ Parking Gate    │
-      └─────────────────┘                    └────────┬────────┘
-                                                      │
-                                                      ▼
-                                             ┌────────────────┐
-                                             │ Exit IR Sensor │
-                                             └────────────────┘
+┌───────────────────────────┐        ┌─────────────────────────┐
+│          NODE 1           │        │         NODE 3          │
+│       LPC2129 ARM7        │        │      LPC2129 ARM7       │
+│                           │        │                         │
+│ • Receives CAN Messages   │        │ • Receives CAN Data     │
+│ • Displays Slot Status    │        │ • Controls SG90 Servo   │
+│ • Shows Entry/Exit Time   │        │ • Opens/Closes Gate     │
+│ • Parking Full Alert      │        │                         │
+└──────────────┬────────────┘        └──────────┬──────────────┘
+               │                                │
+               ▼                                ▼
+      ┌─────────────────┐            ┌─────────────────┐
+      │   20×4 LCD      │            │  SG90 Servo     │
+      │ Parking Status  │            │ Parking Gate    │
+      └─────────────────┘            └────────┬────────┘
+                                              │
+                                              ▼
+                                    ┌────────────────┐
+                                    │ Exit IR Sensor │
+                                    └────────────────┘
 
 ```
 ---
@@ -139,7 +140,7 @@ This project provides an automated solution that:
           +---------+----------+
                     |
                     |
-==================== CAN BUS ====================
+      =========== CAN BUS ===========
                     |
                     |
           +---------+----------+
@@ -148,7 +149,7 @@ This project provides an automated solution that:
           +---------+----------+
                     |
                     |
-==================== CAN BUS ====================
+       ======== CAN BUS =============
                     |
                     |
           +---------+----------+
