@@ -67,9 +67,9 @@ This project provides an automated solution that:
 ---
 
 # 🏗 System Architecture
-
+---
 ## Block Diagram
-
+---
 ┌─────────────────────────────────────────────────────────────────────┐
 │   SMART PARKING SLOT MONITORING AND VEHICLE DETECTION               │
 │             USING CAN PROTOCOL (LPC2129)                            │
@@ -102,7 +102,7 @@ This project provides an automated solution that:
                                 │
                                 ▼
                         Exit IR Sensor
-                        ---
+    ---
 
 # 📡 CAN Network Architecture
 
