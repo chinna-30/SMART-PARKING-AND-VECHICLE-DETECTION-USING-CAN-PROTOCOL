@@ -1,12 +1,4 @@
 # 🚗 Smart Parking Slot Monitoring and Vehicle Detection Using CAN Protocol
-
-![Embedded C](https://img.shields.io/badge/Language-Embedded%20C-blue?style=for-the-badge)
-![LPC2129](https://img.shields.io/badge/Microcontroller-LPC2129-green?style=for-the-badge)
-![CAN Protocol](https://img.shields.io/badge/Communication-CAN-orange?style=for-the-badge)
-![Keil](https://img.shields.io/badge/IDE-Keil%20uVision-red?style=for-the-badge)
-![Proteus](https://img.shields.io/badge/Simulation-Proteus-purple?style=for-the-badge)
-![Status](https://img.shields.io/badge/Project-Completed-success?style=for-the-badge)
-
 ---
 
 ## 📖 Project Overview
@@ -77,7 +69,6 @@ This project provides an automated solution that:
 # 🏗 System Architecture
 
 ## Block Diagram
-## Block Diagram
 
 ┌─────────────────────────────────────────────────────────────────────┐
 │   SMART PARKING SLOT MONITORING AND VEHICLE DETECTION               │
@@ -128,7 +119,6 @@ This project provides an automated solution that:
                                     │ Exit IR Sensor │
                                     └────────────────┘
 
-```
 ---
 
 # 📡 CAN Network Architecture
@@ -156,7 +146,6 @@ This project provides an automated solution that:
           |      NODE 3        |
           | Servo Gate Control |
           +--------------------+
-```
 
 ---
 
@@ -231,8 +220,6 @@ Update LCD
  │
  ▼
 Close Gate
-```
-
 ---
 
 # ⚙ Hardware Components
