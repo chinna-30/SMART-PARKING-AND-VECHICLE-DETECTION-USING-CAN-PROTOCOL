@@ -1,5 +1,4 @@
 # 🚗 Smart Parking Slot Monitoring and Vehicle Detection Using CAN Protocol
----
 
 ## 📖 Project Overview
 
@@ -16,7 +15,6 @@ The project is developed using the **LPC2129 ARM7 Microcontroller** and the **Co
 In conventional parking systems, identifying vacant parking slots and maintaining parking records require significant human effort.
 
 During peak hours, especially in crowded places such as:
-
 - 🛕 Temples
 - 🛍 Shopping Malls
 - 🏥 Hospitals
@@ -37,20 +35,11 @@ vehicles often create congestion due to the absence of an intelligent parking ma
 
 ## 🎯 Need for the Project
 
-Large public places experience heavy vehicle traffic every day. Without proper parking management:
-
-- Drivers spend considerable time searching for vacant parking spaces.
-- Vehicles create unnecessary congestion.
-- Parking staff face difficulties in monitoring parking occupancy.
-- Manual record maintenance is time-consuming and error-prone.
-
-This project provides an automated solution that:
-
-- Monitors parking slot availability.
-- Displays parking status in real time.
-- Records vehicle entry and exit times.
-- Automatically controls the parking gate.
-- Reduces human intervention.
+- Monitor parking slot availability.
+- Display parking status in real time.
+- Record vehicle entry and exit times.
+- Automatically control the parking gate.
+- Reduce human intervention.
 
 ---
 
@@ -66,160 +55,78 @@ This project provides an automated solution that:
 
 ---
 
-# 🏗 System Architecture
----
-## Block Diagram
----
-┌─────────────────────────────────────────────────────────────────────┐
-│   SMART PARKING SLOT MONITORING AND VEHICLE DETECTION               │
-│             USING CAN PROTOCOL (LPC2129)                            │
-└─────────────────────────────────────────────────────────────────────┘
-              |
-              V
-              Vehicle
-               │
-               ▼
-      ┌────────────────┐
-      │ Entry IR Sensor│
-      └───────┬────────┘
-              │
-              ▼
-      ┌────────────────────────────┐
-      │         NODE 2             │
-      │  LPC2129 + DS1307 RTC      │
-      │ Vehicle Detection & Slots  │
-      └──────────┬─────────────────┘
-                 │
-         ======== CAN BUS ========
-           │                  │
-           ▼                  ▼
- ┌─────────────────┐   ┌─────────────────┐
- │     NODE 1      │   │     NODE 3      │
- │ LCD Display     │   │ Servo Control   │
- └───────┬─────────┘   └───────┬─────────┘
-         ▼                     ▼
-    20×4 LCD             Parking Gate
-                                │
-                                ▼
-                        Exit IR Sensor
-    ---
+## 🏗️ System Architecture
 
-# 📡 CAN Network Architecture
-
+```text
+                    Vehicle
+                       │
+                       ▼
+                Entry IR Sensor
+                       │
+                       ▼
+        +-----------------------------+
+        |           NODE 2            |
+        | LPC2129 + DS1307 RTC        |
+        | Vehicle Detection & Slots   |
+        +-------------+---------------+
+                      |
+                 ===== CAN BUS =====
+                  /               \
+                 /                 \
+      +----------------+    +----------------+
+      |     NODE 1     |    |     NODE 3     |
+      |  LCD Display   |    | Servo Control  |
+      +-------+--------+    +-------+--------+
+              |                     |
+              ▼                     ▼
+          20×4 LCD            Parking Gate
+                                     |
+                                     ▼
+                              Exit IR Sensor
 ```
-          +--------------------+
-          |      NODE 1        |
-          | LCD Display Module |
-          +---------+----------+
-                    |
-                    |
-      =========== CAN BUS ===========
-                    |
-                    |
-          +---------+----------+
-          |      NODE 2        |
-          | RTC + IR Sensors   |
-          +---------+----------+
-                    |
-                    |
-       ======== CAN BUS =============
-                    |
-                    |
-          +---------+----------+
-          |      NODE 3        |
-          | Servo Gate Control |
-          +--------------------+
 
 ---
 
-# 🔄 Project Workflow
+## 📡 CAN Network Architecture
 
+```text
++--------------------+
+|      NODE 1        |
+| LCD Display Module |
++---------+----------+
+          |
+========== CAN BUS ==========
+          |
++---------+----------+
+|      NODE 2        |
+| RTC + IR Sensors   |
++---------+----------+
+          |
+========== CAN BUS ==========
+          |
++---------+----------+
+|      NODE 3        |
+| Servo Gate Control |
++--------------------+
 ```
-Power ON
-    │
-    ▼
-Initialize LPC2129
-    │
-    ▼
-Initialize CAN
-    │
-    ▼
-Initialize RTC
-    │
-    ▼
-Initialize LCD
-    │
-    ▼
-Display Available Slots
-    │
-    ▼
-Vehicle Arrives
-    │
-    ▼
-Entry IR Detects Vehicle
-    │
-    ▼
-Record Entry Time
-    │
-    ▼
-Send CAN Message
-    │
-    ▼
-Servo Opens Gate
-    │
-    ▼
-Vehicle Enters
-    │
-    ▼
-Decrease Slot Count
-    │
-    ▼
-Update LCD
-    │
-    ▼
-Parking Full?
- ┌──────┴───────┐
- │              │
-Yes             No
- │              │
- ▼              │
-Display         │
-PARKING FULL    │
- │              │
- ▼              │
-Wait for Exit ◄─┘
- │
- ▼
-Exit IR Detects Vehicle
- │
- ▼
-Record Exit Time
- │
- ▼
-Increase Slot Count
- │
- ▼
-Update LCD
- │
- ▼
-Close Gate
+
 ---
 
-# ⚙ Hardware Components
+## ⚙ Hardware Components
 
 | Component | Description |
 |-----------|-------------|
-| LPC2129 ARM7 Microcontroller | Main controller |
-| CAN Transceiver | CAN communication |
-| DS1307 RTC | Entry & Exit Time |
-| SG90 Servo Motor | Automatic Gate |
+| LPC2129 ARM7 | Main Controller |
+| CAN Transceiver | CAN Communication |
+| DS1307 RTC | Time Logging |
+| SG90 Servo Motor | Gate Control |
 | IR Sensor (Entry) | Vehicle Detection |
 | IR Sensor (Exit) | Vehicle Detection |
 | 20×4 LCD | Status Display |
 
 ---
 
-# 💻 Software Used
+## 💻 Software Used
 
 - Embedded C
 - Keil μVision
@@ -228,197 +135,18 @@ Close Gate
 
 ---
 
-# ⚙ Node Description
-
-## 🖥 Node 1 – Display Node
-
-- Receives CAN messages.
-- Displays parking slot information.
-- Displays entry and exit status.
-- Shows parking full indication.
-
----
-
-## 🚗 Node 2 – Detection Node
-
-- Detects vehicle entry.
-- Detects vehicle exit.
-- Reads DS1307 RTC.
-- Updates parking slot count.
-- Sends CAN messages.
-
----
-
-## 🚪 Node 3 – Gate Controller
-
-- Receives CAN messages.
-- Controls SG90 Servo Motor.
-- Opens parking gate.
-- Closes parking gate.
-- Prevents entry when parking is full.
-
----
-
-# 🔄 Working Principle
-
-### Step 1
-
-System initialization.
-
-LCD displays:
-
-- Total Slots
-- Available Slots
-- Parking Status
-
----
-
-### Step 2
-
-Vehicle reaches entry.
-
-- Entry IR detects vehicle.
-- RTC records entry time.
-- Node 2 sends CAN message.
-
----
-
-### Step 3
-
-Node 3 receives CAN data.
-
-- Opens Servo Gate.
-- Vehicle enters.
-
----
-
-### Step 4
-
-Gate closes.
-
-Parking slot count decreases.
-
-LCD updates.
-
----
-
-### Step 5
-
-Node 1 displays:
-
-- Remaining Slots
-- Parking Status
-- Entry Confirmation
-
----
-
-### Step 6
-
-When all slots are occupied:
-
-```
-PARKING FULL
-```
-
-is displayed.
-
-The gate remains closed.
-
----
-
-### Step 7
-
-Vehicle exits.
-
-- Exit IR detects vehicle.
-- RTC records exit time.
-- Slot count increases.
-- LCD updates.
-
----
-
-# 📡 CAN Communication
-
-This project uses the **Controller Area Network (CAN)** protocol for communication between distributed embedded nodes.
-
-### Advantages
-
-- High-speed communication
-- Reliable data transfer
-- Error detection
-- Multi-node communication
-- Reduced wiring complexity
-- Industrial-grade reliability
-
----
-
-# ✨ Features
-
-- Automatic Vehicle Detection
-- Automatic Gate Control
-- Parking Slot Monitoring
-- RTC-based Entry & Exit Logging
-- LCD Status Display
-- CAN-Based Communication
-- Parking Full Alert
-- Distributed Embedded Architecture
-
----
-
-# ✅ Advantages
-
-- Reduces manual work.
-- Prevents parking congestion.
-- Saves driver's time.
-- Accurate parking records.
-- Reliable CAN communication.
-- Modular system architecture.
-- Easily expandable.
-
----
-
-# 🏢 Applications
-
-- Shopping Malls
-- Temples
-- Airports
-- Railway Stations
-- Hospitals
-- Office Campuses
-- Educational Institutions
-- Smart Parking Systems
-
----
-
-# 🚀 Future Enhancements
-
-- RFID-based Vehicle Authentication
-- GSM/Wi-Fi Notifications
-- Mobile Application
-- Cloud Database
-- Automatic Billing
-- ANPR (Automatic Number Plate Recognition)
-- Online Parking Reservation
-
----
-
-
----
-
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Chinnadurai V**
 
-**Embedded Systems Engineer**
+Embedded Systems Engineer
 
-📧 Email: *chinnaduraivajjiram@gmail.com*
+📧 chinnaduraivajjiram@gmail.com
 
-🔗 GitHub: https://github.com/chinna-30/SMART-PARKING-AND-VECHICLE-DETECTION-USING-CAN-PROTOCOL
+GitHub: https://github.com/chinna-30/SMART-PARKING-AND-VECHICLE-DETECTION-USING-CAN-PROTOCOL
 
-🔗 LinkedIn: *https://www.linkedin.com/in/chinnadurai-v-9918783b7/*
+LinkedIn: https://www.linkedin.com/in/chinnadurai-v-9918783b7/
 
 ---
 
-
-
-If you found this project useful, please consider giving it a **⭐ Star** on GitHub.
+⭐ If you found this project useful, please give it a star on GitHub.
