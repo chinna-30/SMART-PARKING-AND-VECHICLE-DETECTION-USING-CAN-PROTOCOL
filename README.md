@@ -102,6 +102,7 @@ This project provides an automated solution that:
                                 │
                                 ▼
                         Exit IR Sensor
+                        ---
 
 # 📡 CAN Network Architecture
 
