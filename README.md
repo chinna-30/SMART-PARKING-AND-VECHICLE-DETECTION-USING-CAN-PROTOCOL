@@ -75,50 +75,32 @@ This project provides an automated solution that:
 │             USING CAN PROTOCOL (LPC2129)                            │
 └─────────────────────────────────────────────────────────────────────┘
                                    |
-                                   V
-                             Vehicle Arrives
-                                   │
-                                   ▼
-                         ┌────────────────────┐
-                         │  Entry IR Sensor   │
-                         └─────────┬──────────┘
-                                   │
-                                   ▼
-                 ┌──────────────────────────┐
-                 │            NODE 2        │
-                 │         LPC2129 ARM7     │
-                 │                          │
-                 │ • Vehicle Detection      │
-                 │ • Entry/Exit Monitoring  │
-                 │ • Slot Count Management  │
-                 │ • DS1307 RTC Interface   │
-                 └──────────────┬───────────┘
+                     Vehicle
+               │
+               ▼
+      ┌────────────────┐
+      │ Entry IR Sensor│
+      └───────┬────────┘
+              │
+              ▼
+      ┌────────────────────────────┐
+      │         NODE 2             │
+      │  LPC2129 + DS1307 RTC      │
+      │ Vehicle Detection & Slots  │
+      └──────────┬─────────────────┘
+                 │
+         ======== CAN BUS ========
+           │                  │
+           ▼                  ▼
+ ┌─────────────────┐   ┌─────────────────┐
+ │     NODE 1      │   │     NODE 3      │
+ │ LCD Display     │   │ Servo Control   │
+ └───────┬─────────┘   └───────┬─────────┘
+         ▼                     ▼
+    20×4 LCD             Parking Gate
                                 │
-                    CAN BUS Communication
-          ┌─────────────────────┴─────────────────────┐
-          │                                           │
-          ▼                                           ▼
-┌───────────────────────────┐        ┌─────────────────────────┐
-│          NODE 1           │        │         NODE 3          │
-│       LPC2129 ARM7        │        │      LPC2129 ARM7       │
-│                           │        │                         │
-│ • Receives CAN Messages   │        │ • Receives CAN Data     │
-│ • Displays Slot Status    │        │ • Controls SG90 Servo   │
-│ • Shows Entry/Exit Time   │        │ • Opens/Closes Gate     │
-│ • Parking Full Alert      │        │                         │
-└──────────────┬────────────┘        └──────────┬──────────────┘
-               │                                │
-               ▼                                ▼
-      ┌─────────────────┐            ┌─────────────────┐
-      │   20×4 LCD      │            │  SG90 Servo     │
-      │ Parking Status  │            │ Parking Gate    │
-      └─────────────────┘            └────────┬────────┘
-                                              │
-                                              ▼
-                                    ┌────────────────┐
-                                    │ Exit IR Sensor │
-                                    └────────────────┘
-
+                                ▼
+                        Exit IR Sensor
 ---
 
 # 📡 CAN Network Architecture
